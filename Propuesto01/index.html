@@ -1,31 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Mi proyecto Web</title>
-    <!-- Enlace al archivo CSS -->
-    <link rel="stylesheet" href="styles.css"/>
-</head>
-<body>
-    <h1>Bienvenido a mi Página Web</h1>
-    <p>Este proyecto fue publicado usando Github.</p>
-    <p>Ingrese su nombre:</p>
-    <input type="text" id="nombre" placeholder="Escribe tu nombre"/>
-    <button onclick="saludar()">Saludar</button>
-    <p id="resultado"></p>
 
-    <!-- Formulario -->
-    <h2>Formulario de contacto</h2>
-    <input type="email" id="correo" placeholder="Ingrese su correo">
-    <button onclick="validarCorreo()">Validar Correo</button>
-    <p id="mensajeCorreo"></p>
-    
-    <!-- Enlace al archivo JavaScript -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiru · Reservas | Cocina Cusqueña</title>
+    <meta name="description" content="Reserva tu mesa en Kiru, auténtica cocina cusqueña.">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Kiru · Reservas | Cocina Cusqueña">
+    <meta property="og:description" content="Reserva tu mesa en Kiru, auténtica cocina cusqueña.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#">Home</a>
+            <a href="#">Menu</a>
+        </div>
+        <div class="nav-center">
+            <div class="logo">
+                Kiru
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <ellipse cx="12" cy="16" rx="10" ry="3" />
+                    <path d="M4 16v2a8 8 0 0 0 16 0v-2" />
+                    <path d="M12 4c-1.5 0-3 2.5-3 5.5s1.5 5.5 3 5.5 3-2.5 3-5.5S13.5 4 12 4z" />
+                    <path d="M12 4v11" />
+                    <path d="M10 7h4" />
+                    <path d="M9.5 10h5" />
+                    <path d="M10 13h4" />
+                </svg>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="#">About</a>
+            <div class="dropdown-container">
+                <button id="socialBtn" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">Contact
+                    ▾</button>
+                <div id="socialDropdown" class="dropdown-menu">
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">TikTok</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="layout">
+        <div class="col-left">
+            <div class="image-mask mask-left"></div>
+            <img src="Imgs/ImageRestaurant.jfif" alt="Ambiente restaurante Kiru" class="bg-image">
+        </div>
+
+        <div class="col-center">
+            <div class="card" id="reservationCard">
+                <div id="formSection">
+                    <h1>Reserva tu mesa</h1>
+                    <form id="reservationForm" novalidate>
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej. María Quispe">
+                            <span class="error" id="error-nombre"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">Correo electrónico</label>
+                            <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com">
+                            <span class="error" id="error-correo"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="fecha">Fecha de reserva</label>
+                                <input type="date" id="fecha" name="fecha">
+                                <span class="error" id="error-fecha"></span>
+                            </div>
+                            <div class="form-group half">
+                                <label for="hora">Hora (12:00 - 22:30)</label>
+                                <input type="time" id="hora" name="hora" min="12:00" max="22:30">
+                                <span class="error" id="error-hora"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="personas">Número de personas</label>
+                            <div class="stepper">
+                                <button type="button" id="btnMinus" aria-label="Disminuir personas">−</button>
+                                <input type="number" id="personas" name="personas" value="2" min="1" max="12" readonly>
+                                <button type="button" id="btnPlus" aria-label="Aumentar personas">+</button>
+                            </div>
+                            <span class="error" id="error-personas"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comentarios">Comentarios adicionales (opcional)</label>
+                            <textarea id="comentarios" name="comentarios" rows="3"
+                                placeholder="Alergias, ocasión especial..."></textarea>
+                            <span class="error" id="error-comentarios"></span>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Reservar Mesa</button>
+                    </form>
+                </div>
+
+                <div id="successSection" class="hidden">
+                    <div class="success-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h2>Reserva confirmada correctamente.</h2>
+                    <p>Los detalles de tu reserva han sido guardados.</p>
+                    <div class="summary" id="summaryDetails">
+                        <!-- Summary details injected via JS -->
+                    </div>
+                    <button id="btnReset" class="btn-secondary">Hacer otra reserva</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-right">
+            <div class="image-mask mask-right"></div>
+            <img src="Imgs/Plates.jfif" alt="Plato típico cusqueño" class="bg-image">
+        </div>
+    </main>
+
     <script src="script.js"></script>
-    <footer>
-        <h3>Página hecha por:</h3>
-        <p><em>Amilcar Estacio Medrano</em></p>
-        <p><em>Código: 200822</em></p>
-    </footer>
 </body>
+
 </html>
