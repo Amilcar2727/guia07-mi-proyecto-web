@@ -177,7 +177,7 @@ h1, h2, h3, .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
     z-index: 20;
     background: var(--background);
     box-shadow: 0 0 50px 30px var(--background);
@@ -192,7 +192,7 @@ h1, h2, h3, .logo {
     border-radius: 1.5rem;
     padding: 2.5rem;
     width: 100%;
-    max-width: 480px;
+    max-width: 800px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
